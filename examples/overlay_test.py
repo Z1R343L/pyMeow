@@ -23,22 +23,20 @@ def main():
                 ball_left = False
             else:
                 x += speed
+        elif x < -1 + radius:
+            ball_left = True
         else:
-            if x < -1 + radius:
-                ball_left = True
-            else:
-                x -= speed
+            x -= speed
 
         if ball_down:
             if y > height - radius:
                 ball_down = False
             else:
                 y += speed
+        elif y < -1 + radius:
+            ball_down = True
         else:
-            if y < -1 + radius:
-                ball_down = True
-            else:
-                y -= speed
+            y -= speed
 
         pm.begin_drawing()
         [pm.draw_pixel(vec["x"], vec["y"], pm.get_color("#ffffff")) for vec in stars]

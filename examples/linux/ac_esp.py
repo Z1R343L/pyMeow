@@ -63,14 +63,16 @@ def main():
     entity_list = pm.r_int(proc, base + Pointer.entity_list)
 
     if RAPID_FIRE:
-        rapidScan = pm.aob_scan_module(proc, "linux_64_client", "89 01 48 8B 43")
-        if rapidScan:
+        if rapidScan := pm.aob_scan_module(
+            proc, "linux_64_client", "89 01 48 8B 43"
+        ):
             pm.page_protection(proc, rapidScan[0], 7)
             pm.w_bytes(proc, rapidScan[0], [0x90, 0x90])
 
     if AMMO_HACK:
-        ammoScan = pm.aob_scan_module(proc, "linux_64_client", "83 00 FF 48 8B 43")
-        if ammoScan:
+        if ammoScan := pm.aob_scan_module(
+            proc, "linux_64_client", "83 00 FF 48 8B 43"
+        ):
             pm.page_protection(proc, ammoScan[0], 7)
             pm.w_bytes(proc, ammoScan[0], [0x90, 0x90, 0x90])
 
@@ -83,7 +85,7 @@ def main():
         pm.draw_fps(0, 0)
         for i in range(31):
             ent_addr = pm.r_int(proc, entity_list + i * 8)
-            if ent_addr != 0 and ent_addr != local_player_addr:
+            if ent_addr not in [0, local_player_addr]:
                 try:
                     ent_obj = Entity(ent_addr, proc)
                 except:

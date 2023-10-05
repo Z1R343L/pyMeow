@@ -68,7 +68,7 @@ def main():
         pm.draw_fps(10, 10)
 
         if local_player_addr:
-            ent_addrs = pm.r_ints(csgo_proc, game_module + Offsets.dwEntityList, 128)[0::4]
+            ent_addrs = pm.r_ints(csgo_proc, game_module + Offsets.dwEntityList, 128)[::4]
             view_matrix = pm.r_floats(csgo_proc, game_module + Offsets.dwViewMatrix, 16)
             for ent_addr in ent_addrs:
                 if ent_addr > 0 and ent_addr != local_player_addr:

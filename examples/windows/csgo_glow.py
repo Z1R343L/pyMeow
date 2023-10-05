@@ -48,7 +48,7 @@ def main():
             continue
 
         if local_player:
-            ent_addrs = pm.r(csgo_proc, client + Offsets.dwEntityList, "int", 128)[0::4]
+            ent_addrs = pm.r(csgo_proc, client + Offsets.dwEntityList, "int", 128)[::4]
             for ent in ent_addrs:
                 if ent and ent != local_player:
                     glow_addr = (
